@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "bn.js": "^5.2.1",
     "crypto-js": "^4.2.0"
   },
   "scripts": {

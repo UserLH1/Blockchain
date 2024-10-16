@@ -1,15 +1,18 @@
-import * as crypto from 'crypto';
+import { createHash } from 'crypto';
 
+function generateSHA256Hash(firstName: string, lastName: string): string {
+  const blockchainHash = createHash('sha256').update('Blockchain').digest('hex');
 
-function createHash(firstName: string, lastName: string): string
-{
-    const word = firstName + "." + lastName + "." + 'SHA256("Blockchain")';
-    console.log(word);    
-    const hash:string = crypto.createHash('sha256').update(firstName + "."+lastName).digest('hex');
-    return hash;
-    
+  const input = `${firstName}.${lastName}.${blockchainHash}`;
+
+  const finalHash = createHash('sha256').update(input).digest('hex');
+
+  return finalHash;
 }
 
-const firstName = 'Horatiu';
-const lastName = 'Lazea';
-console.log(createHash(firstName, lastName));
+const firstName = "Horatiu";
+const lastName = "Lazea"; 
+
+const result = generateSHA256Hash(firstName, lastName);
+
+console.log("Hash-ul generat este:", result);

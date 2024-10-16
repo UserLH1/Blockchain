@@ -20,13 +20,10 @@ async function breakHash(hash:string): Promise<void>{
   });
 
   for await (const line of rl) {
-    const password = line.trim(); // Eliminăm spațiile albe de la începutul și sfârșitul liniei
+    const password = line.trim(); 
 
-    // Generăm hash-ul pentru parola curentă
     const hash = createHash(password);
-   //console.log(hash);
 
-    // Verificăm dacă hash-ul generat se potrivește cu cel țintă
     if (hash === target_hash) {
       console.log(`Password found: ${password}`);
       return;
