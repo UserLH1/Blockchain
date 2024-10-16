@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "crypto-js": "^4.2.0"
+  },
+  "scripts": {
+    "start": "tsc sha-256-2.ts && node sha-256-2.js"
+  },
+  "devDependencies": {
+    "@types/node": "^22.7.5"
+  }
+}
