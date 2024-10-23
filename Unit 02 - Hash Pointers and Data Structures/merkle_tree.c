@@ -296,20 +296,45 @@ MerkleProof* generate_proof(MerkleTree *tree, const char *data) {
 
     return proof;
 }
+void read_students_from_file(MerkleTree *tree, const char *filename) {
+    FILE *file = fopen(filename, "r");
+    if (file == NULL) {
+        perror("Eroare la deschiderea fișierului");
+        return;
+    }
 
+    char name[100]; 
+    while (fgets(name, sizeof(name), file)) {
+        // Elimină caracterul de nouă linie
+        name[strcspn(name, "\n")] = 0;
+
+        char *start = strchr(name, '"');
+        char *end = strrchr(name, '"');
+        if (start && end && start != end) {
+            // Muta pointerele pentru a sări peste ghilimele
+            start++;
+            *end = '\0'; // Transformă ultimul ghilimele în terminator de șir
+            add_element(tree, start);
+        }
+    }
+
+    fclose(file);
+}
 int main() {
     MerkleTree *tree = create_merkle_tree();
 
     // Lista studenților - exemplu simplu (înlocuiește cu lista reală)
-    const char *students[] = {
-        "Alice", "Bob", "Charlie", "David", "Eve"
-    };
+    // const char *students[] = {
+    //     "Alice", "Bob", "Charlie", "David", "Eve"
+    // };
 
-    // Adaugă fiecare student în arbore
-    for (int i = 0; i < 5; i++) {
-        add_element(tree, students[i]);
-    }
+    // // Adaugă fiecare student în arbore
+    // for (int i = 0; i < 5; i++) {
+    //     add_element(tree, students[i]);
+    // }
 
+    read_students_from_file(tree, "students.txt");
+    
     // Afișează hash-ul rădăcinii arborelui Merkle
     const unsigned char *root_hash = get_root_hash(tree);
     char *root_hash_str = hash_to_string(root_hash);
@@ -317,7 +342,7 @@ int main() {
     free(root_hash_str);
 
     // Generarea unui proof pentru un student specificat (ex: "Charlie")
-    const char *student_name = "Charlie";
+    const char *student_name = "Horatiu Lazea";
     MerkleProof *proof = generate_proof(tree, student_name);
 
     // Afișează proof-ul generat
