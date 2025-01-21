@@ -1,2 +1,10 @@
+<<<<<<< HEAD
+artifacts/
+cache/
+crytic-export/
+node_modules/
+typechain/
+=======
 node_modules
 rockyou.txt
+>>>>>>> d131eaf1776892028b887112e32fbf3f1c6a0b9b
